@@ -1,3 +1,5 @@
+import cats.Show
+import cats.Eq
 
 trait Printable[A] {
   def format(item: A): String
@@ -52,4 +54,36 @@ object Main extends App {
   genji.print
   snoop.print
   harley.print
+
+  implicit val catShow = Show.show[Cat](cat => s"${cat.name} is a ${cat.age} year old ${cat.color} cat.")
+  println("Output from Show")
+  println(catShow.show(genji))
+  println(catShow.show(snoop))
+  println(catShow.show(harley))
+
+  import cats.syntax.show._
+  println("Output from Show syntax")
+  println(genji.show)
+  println(snoop.show)
+  println(harley.show)
+
+  implicit val catEq = Eq.instance[Cat]{(cat1, cat2) => cat1.name == cat2.name && cat1.color == cat2.color}
+  val newgenji = Cat("Genji", 8, "cow")
+
+  println("Equivalence")
+  println(s"Genji and new-Genji: ${Eq.eqv(genji, newgenji)}")
+  println(s"Genji and Harley: ${Eq.eqv(genji, harley)}")
+
+  import cats.syntax.eq._
+  println(s"Genji and new-Genji: ${genji === newgenji}")
+  println(s"Genji and Harley: ${genji === harley}")
+
+  val optGenji: Option[Cat] = Some(genji)
+  val optNone: Option[Cat] = None
+  val optNewGenji: Option[Cat] = Some(newgenji)
+
+  import cats.std.option._
+  println(s"Optional Genji and None: ${optGenji === optNone}")
+  println(s"Optional Genji and Optional new-Genji: ${optGenji === optNewGenji}")
+
 }
