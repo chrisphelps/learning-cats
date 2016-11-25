@@ -15,19 +15,16 @@ class MonoidSpec extends FlatSpec with Matchers {
 
   "Monoids" should "combine without a saved instance" in {
     val combined = Monoid[String].combine("Hi ", "there")
-    println(s"Combined: $combined")
     combined should be ("Hi there")
   }
 
   it should "combine via an instance" in {
     val instance = Monoid[String]
-    println(instance.combine("foo", "bar"))
     instance.combine("foo", "bar") should be ("foobar")
   }
 
   it should "combine strings with syntax" in {
     val scombined = "Some" |+| "Combination" |+| "Of" |+| "Stuff"
-    println(scombined)
     scombined should be ("SomeCombinationOfStuff")
   }
 
