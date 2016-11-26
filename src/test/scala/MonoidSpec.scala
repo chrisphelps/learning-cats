@@ -2,9 +2,9 @@
 import cats._
 import org.scalatest.{FlatSpec, Matchers}
 
-import cats.std.string._
-import cats.std.int._
-import cats.std.option._
+import cats.instances.string._
+import cats.instances.int._
+import cats.instances.option._
 import cats.syntax.semigroup._
 
 class MonoidSpec extends FlatSpec with Matchers {

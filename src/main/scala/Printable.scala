@@ -82,7 +82,7 @@ object Main extends App {
   val optNone: Option[Cat] = None
   val optNewGenji: Option[Cat] = Some(newgenji)
 
-  import cats.std.option._
+  import cats.instances.option._
   println(s"Optional Genji and None: ${optGenji === optNone}")
   println(s"Optional Genji and Optional new-Genji: ${optGenji === optNewGenji}")
 

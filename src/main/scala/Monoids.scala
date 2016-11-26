@@ -1,7 +1,7 @@
 
 import cats.Monoid
-import cats.std.string._
-import cats.std.int._
+import cats.instances.string._
+import cats.instances.int._
 import cats.syntax.semigroup._
 
 
