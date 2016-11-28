@@ -2,11 +2,11 @@
 import cats.Functor
 import org.scalatest.{FlatSpec, Matchers}
 
-sealed trait Tree[+A]
-final case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
-final case class Leaf[A](value: A) extends Tree[A]
-
 class FunctorSpec extends FlatSpec with Matchers {
+
+  sealed trait Tree[+A]
+  final case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
+  final case class Leaf[A](value: A) extends Tree[A]
 
   implicit val treeFunctor = new Functor[Tree] {
     def map[A, B](value: Tree[A])(f: A => B): Tree[B] = {
