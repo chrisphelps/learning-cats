@@ -37,12 +37,12 @@ class ValidatedSpec extends FlatSpec with Matchers {
     getValue(form)("age").flatMap(parseInt).flatMap(nonNegative)
   }
 
-  def readUser(form: Map[String, String]): Validated[List[String], User] = {
-    (
-      readName(form).toValidated |@|
-      readAge(form).toValidated
-    ).map(User.apply)
-  }
+//  def readUser(form: Map[String, String]): Validated[List[String], User] = {
+//    (
+//      readName(form).toValidated combine
+//      readAge(form).toValidated
+//    ).map(User.apply _)
+//  }
 
   "GetValue" should "get a value from a map" in {
     val form = Map("name" -> "Chris", "state" -> "CO")
@@ -120,18 +120,18 @@ class ValidatedSpec extends FlatSpec with Matchers {
     readAge(form) shouldBe a [Left[_, _]]
   }
 
-  "ReadUser" should "read a user when all the stuff is right" in {
-    val form = Map("name" -> "Chris", "age" -> "42")
-
-    readUser(form) should be(Validated.Valid(User("Chris", 42)))
-  }
-
-  it should "collect errors when stuff is wrong" in {
-    val form = Map("name" -> "", "age" -> "-5")
-
-    val result = readUser(form)
-
-    result shouldBe a [Validated.Invalid[_]]
-    result.leftMap(l => l.size should be(2))
-  }
+//  "ReadUser" should "read a user when all the stuff is right" in {
+//    val form = Map("name" -> "Chris", "age" -> "42")
+//
+//    readUser(form) should be(Validated.Valid(User("Chris", 42)))
+//  }
+//
+//  it should "collect errors when stuff is wrong" in {
+//    val form = Map("name" -> "", "age" -> "-5")
+//
+//    val result = readUser(form)
+//
+//    result shouldBe a [Validated.Invalid[_]]
+//    result.leftMap(l => l.size should be(2))
+//  }
 }

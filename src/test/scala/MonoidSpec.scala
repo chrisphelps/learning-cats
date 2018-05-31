@@ -9,8 +9,11 @@ import cats.syntax.semigroup._
 
 class MonoidSpec extends FlatSpec with Matchers {
 
-  def add[T](items: List[T])(implicit m: Monoid[T]): T = {
-    m.combineAll(items)
+//  def add[T](items: List[T])(implicit m: Monoid[T]): T = {
+//    m.combineAll(items)
+//  }
+  def add[T: Monoid](items: List[T]): T = {
+    implicitly[Monoid[T]].combineAll(items)
   }
 
   "Monoids" should "combine without a saved instance" in {
